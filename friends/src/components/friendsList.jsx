@@ -1,14 +1,34 @@
 import React, { useEffect } from 'react';
+import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
-import { getFriends } from '../actions/index';
+import { getFriends, login } from '../actions/index';
+import Friend from './Friend';
 
-const FriendsList = (props) => {
-	useEffect(() => {
-		props.getFriends();
-	});
-	console.log(props);
-	return <div>{props.friends.map((friend) => <p>{friend.name}</p>)}</div>;
-};
+
+class FriendsList extends React.Component {
+	componentDidMount() {
+      this.props.getFriends();
+      this.props.login();
+	}
+
+	loginBtn = () => {
+		this.props.login();
+	};
+
+	render() {
+		console.log(this.props);
+		return (
+			<div>
+				{this.props.isLoading && <Loader type="TailSpin" color="#00BFFF" height="200" width="200" />}
+				{this.props.error && <h3>{this.props.error}</h3>}
+				{this.props.friends.map((friend) => {
+					return <Friend key={friend.id} friend={friend} />;
+				})}
+				<button onCLick={this.loginBtn}>LOGIN</button>
+			</div>
+		);
+	}
+}
 
 const mapStateToProps = (state) => {
 	return {
@@ -18,4 +38,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getFriends })(FriendsList);
+export default connect(mapStateToProps, { getFriends, login })(FriendsList);

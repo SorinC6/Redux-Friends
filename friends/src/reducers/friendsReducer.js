@@ -1,4 +1,13 @@
-import { FETCH_FRIENDS_FAIL, FETCH_FRIENDS_START, FETCH_FRIENDS_SUCCESS } from '../actions';
+import {
+	FETCH_FRIENDS_FAIL,
+	FETCH_FRIENDS_START,
+	FETCH_FRIENDS_SUCCESS,
+	LOGIN_SUCCESS,
+	LOGIN_FAIL,
+	POST_FRIEND_START,
+	POST_FRIEND_SUCCESS,
+	POST_FRIEND_FAIL
+} from '../actions';
 
 const initialState = {
 	friends: [],
@@ -8,14 +17,14 @@ const initialState = {
 
 export const friendsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case FETCH_FRIENDS_FAIL:
+		case FETCH_FRIENDS_START:
 			return {
 				...state,
 				isLoading: true,
 				error: ''
 			};
-      case FETCH_FRIENDS_SUCCESS:
-      //console.log('reducer ',action.payload)
+		case FETCH_FRIENDS_SUCCESS:
+			//console.log('reducer ',action.payload)
 			return {
 				...state,
 				friends: action.payload,
@@ -23,6 +32,25 @@ export const friendsReducer = (state = initialState, action) => {
 				error: ''
 			};
 		case FETCH_FRIENDS_FAIL:
+			return {
+				...state,
+				isLoading: false,
+				error: action.payload
+			};
+		case POST_FRIEND_START:
+			return {
+				...state,
+				isLoading: true,
+				error: ''
+			};
+		case POST_FRIEND_SUCCESS:
+			return {
+				...state,
+				friends: state.friends.concat(action.payload),
+				isLoading: false,
+				error: ''
+			};
+		case POST_FRIEND_FAIL:
 			return {
 				...state,
 				isLoading: false,
