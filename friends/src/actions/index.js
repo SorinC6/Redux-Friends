@@ -13,6 +13,10 @@ export const POST_FRIEND_START = 'POST_FRIEND_START';
 export const POST_FRIEND_SUCCESS = 'POST_FRIEND_SUCCESS';
 export const POST_FRIEND_FAIL = 'POST_FRIEND_FAIL';
 
+export const DELE_FRIEND_START = 'DELE_FRIEND_START';
+export const DELETE_FRIEND_SUCCESS = 'DELETE_FRIEND_SUCCESS';
+export const DELETE_FRIEND_FAIL = 'DELETE_FRIEND_FAIL';
+
 export const login = (userCredential) => (dispatch) => {
 	dispatch({ type: LOGIN_STARTED });
 	axios
@@ -39,5 +43,13 @@ export const postFriend = (friend) => (dispatch) => {
 	axiosWithAuth()
 		.post('http://localhost:5000/api/friends', friend)
 		.then((res) => dispatch({ type: POST_FRIEND_SUCCESS, payload: res.data }))
-		.catch((err) => dispatch({ type: POST_FRIEND_FAIL, payload: err }));
+		.catch((err) => dispatch({ type: POST_FRIEND_FAIL, payload: err.message }));
+};
+
+export const deleteFriend = (id) => (dispatch) => {
+	dispatch({ type: DELE_FRIEND_START });
+	axiosWithAuth()
+		.delete(`http://localhost:5000/api/friends/${id}`)
+		.then((res) => dispatch({ type: DELETE_FRIEND_SUCCESS, payload: res.data }))
+		.then((err) => dispatch({ type: DELETE_FRIEND_FAIL, payload: err.message }));
 };

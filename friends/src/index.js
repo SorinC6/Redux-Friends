@@ -11,9 +11,9 @@ import thunk from 'redux-thunk';
 
 // create custom middleware to save 'userToken' to local storage on LOGIN_SUCCESS
 const customMiddlewareToSaveUserToke = (store) => (next) => (action) => {
-	console.log('STOREEEE ',store);
+	//console.log('STOREEEE ',store);
 	if (action.type === LOGIN_SUCCESS) {
-      console.log('alabalasa')
+      //console.log('alabalasa')
 
 		localStorage.setItem('userToken', action.payload);
 	}

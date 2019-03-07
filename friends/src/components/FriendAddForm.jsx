@@ -31,7 +31,7 @@ export class FriendAddForm extends React.Component {
 	};
 
 	render() {
-		console.log('FORM PROPS', this.prosp);
+		//console.log('FORM PROPS', this.prosp);
 		return (
 			<div style={{ textAlign: 'center' }}>
 				<div>

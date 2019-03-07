@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
-import { getFriends, login } from '../actions/index';
+import { getFriends, deleteFriend } from '../actions/index';
 import Friend from './Friend';
 import styled from 'styled-components';
 
@@ -16,8 +16,10 @@ class FriendsList extends React.Component {
 		//this.props.login();
 	}
 
-	loginBtn = () => {
-		this.props.login();
+	deleteFriend = (id) => {
+		//console.log(id);
+		this.props.deleteFriend(id);
+		//this.props.getFriends();
 	};
 
 	render() {
@@ -27,9 +29,8 @@ class FriendsList extends React.Component {
 				{this.props.isLoading && <Loader type="TailSpin" color="#00BFFF" height="200" width="200" />}
 				{this.props.error && <h3>{this.props.error}</h3>}
 				{this.props.friends.map((friend) => {
-					return <Friend key={friend.id} friend={friend} />;
+					return <Friend key={friend.id} friend={friend} deleteFriend={this.deleteFriend} />;
 				})}
-				{/* <button onCLick={this.loginBtn}>LOGIN</button> */}
 			</WrapperDiv>
 		);
 	}
@@ -43,4 +44,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getFriends, login })(FriendsList);
+export default connect(mapStateToProps, { getFriends, deleteFriend })(FriendsList);

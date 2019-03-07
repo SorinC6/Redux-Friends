@@ -6,7 +6,10 @@ import {
 	LOGIN_FAIL,
 	POST_FRIEND_START,
 	POST_FRIEND_SUCCESS,
-	POST_FRIEND_FAIL
+	POST_FRIEND_FAIL,
+	DELE_FRIEND_START,
+	DELETE_FRIEND_SUCCESS,
+	DELETE_FRIEND_FAIL
 } from '../actions';
 
 const initialState = {
@@ -55,7 +58,15 @@ export const friendsReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				error: action.payload
-			};
+         };
+      case DELETE_FRIEND_SUCCESS:
+      //console.log('reducer',action.payload)
+         return {
+            ...state,
+            friends: state.friends.filter(fr=> fr.id !== action.payload),
+            isLoading: false,
+				error: ''
+         }
 		default:
 			return state;
 	}
