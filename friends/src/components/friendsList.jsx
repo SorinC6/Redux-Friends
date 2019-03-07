@@ -3,12 +3,17 @@ import Loader from 'react-loader-spinner';
 import { connect } from 'react-redux';
 import { getFriends, login } from '../actions/index';
 import Friend from './Friend';
+import styled from 'styled-components';
 
+const WrapperDiv = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+`;
 
 class FriendsList extends React.Component {
 	componentDidMount() {
-      this.props.getFriends();
-      this.props.login();
+		this.props.getFriends();
+		//this.props.login();
 	}
 
 	loginBtn = () => {
@@ -18,14 +23,14 @@ class FriendsList extends React.Component {
 	render() {
 		console.log(this.props);
 		return (
-			<div>
+			<WrapperDiv>
 				{this.props.isLoading && <Loader type="TailSpin" color="#00BFFF" height="200" width="200" />}
 				{this.props.error && <h3>{this.props.error}</h3>}
 				{this.props.friends.map((friend) => {
 					return <Friend key={friend.id} friend={friend} />;
 				})}
-				<button onCLick={this.loginBtn}>LOGIN</button>
-			</div>
+				{/* <button onCLick={this.loginBtn}>LOGIN</button> */}
+			</WrapperDiv>
 		);
 	}
 }

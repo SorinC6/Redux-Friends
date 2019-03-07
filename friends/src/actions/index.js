@@ -13,10 +13,10 @@ export const POST_FRIEND_START = 'POST_FRIEND_START';
 export const POST_FRIEND_SUCCESS = 'POST_FRIEND_SUCCESS';
 export const POST_FRIEND_FAIL = 'POST_FRIEND_FAIL';
 
-export const login = () => (dispatch) => {
+export const login = (userCredential) => (dispatch) => {
 	dispatch({ type: LOGIN_STARTED });
 	axios
-		.post('http://localhost:5000/api/login', { username: 'Lambda School', password: 'i<3Lambd4' })
+		.post('http://localhost:5000/api/login', userCredential)
 		.then((res) => {
 			//localStorage.setItem('userToken', res.data.payload);
 			dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
@@ -25,8 +25,6 @@ export const login = () => (dispatch) => {
 			dispatch({ type: LOGIN_FAIL, payload: err.message });
 		});
 };
-
-
 
 export const getFriends = () => (dispatch) => {
 	dispatch({ type: FETCH_FRIENDS_START });

@@ -9,7 +9,7 @@ export class FriendAddForm extends React.Component {
 	age = React.createRef();
 	email = React.createRef();
 
-	onAddQuote = () => {
+	addFriend = () => {
 		const name = this.name.current;
 		const age = this.age.current;
 		const email = this.age.current;
@@ -22,7 +22,6 @@ export class FriendAddForm extends React.Component {
 
 		this.props.postFriend(friend);
 		//console.log('NEW FRIEND', friend);
-
 		// Invoke addQuoteAsync at this point.
 		// Review its definition to know how to invoke it correctly.
 
@@ -34,7 +33,7 @@ export class FriendAddForm extends React.Component {
 	render() {
 		console.log('FORM PROPS', this.prosp);
 		return (
-			<div>
+			<div style={{ textAlign: 'center' }}>
 				<div>
 					<em>Name: </em>
 					<input ref={this.name} type="text" />
@@ -48,7 +47,7 @@ export class FriendAddForm extends React.Component {
 					<input ref={this.email} type="email" />
 				</div>
 				<div>
-					<button onClick={this.onAddQuote}>Add Friend</button>
+					<button onClick={this.addFriend}>Add Friend</button>
 				</div>
 			</div>
 		);
